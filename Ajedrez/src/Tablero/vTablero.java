@@ -4,14 +4,21 @@ import Piezas.*;
 
 public class vTablero
 {
+    private static vTablero instance = null;
     private Object [] [] vTablero = new Object[8][8];
+    private String orden="";
+
+    //Gets
+    public Object[][] getVTablero(){return vTablero;}
+    public String getOrden(){return orden;}
 
     //Setear posiciónes iniciales
     //Chequear repartición J1 y J2 - J1 abajo
-    public vTablero(String J1)
+    private vTablero(String J1)
     {
+        orden = J1;
 
-        if(J1.equalsIgnoreCase("Blanco")) //Blancas abajo
+        if(J1.equalsIgnoreCase("Abajo_Blancas")) //Blancas abajo
         {
             String Color = "Negro";
 
@@ -22,7 +29,7 @@ public class vTablero
             Cargar_Abajo_Matriz(Color);
 
 
-        } else if (J1.equalsIgnoreCase("Negro"))  //Negras abajo
+        } else if (J1.equalsIgnoreCase("Arriba_Blancas"))  //Negras abajo
         {
             String Color = "Blanco";
 
@@ -35,9 +42,22 @@ public class vTablero
         }
     }
 
-    //Gets
-    public Object[][] getVTablero() {
-        return vTablero;
+    //Singleton
+    public static vTablero getInstance(String J1) {
+        if (instance == null) {
+            instance = new vTablero(J1);
+        }
+        return instance;
+    }
+
+    public boolean Guardar_En_Matriz(int fila, int columna, Object Pieza){
+        boolean check = false;
+        if(vTablero[fila][columna] == null){
+            vTablero[fila][columna] = Pieza;
+            check = true;
+        }
+
+        return check;
     }
 
     public void Cargar_Arriba_Matriz(String Color)
@@ -120,6 +140,5 @@ public class vTablero
         vTablero[0][3] = _Rey;
         vTablero[0][4] = _Reina;
     }
-
 
 }

@@ -14,9 +14,11 @@ public class Tablero extends JFrame
     private Color t_colorBlack = new Color(0, 0, 0,255);
     private Color t_colorWhite = new Color(248, 248, 248,255);
     private JPanel panel_8x8 = new JPanel(new GridLayout(8, 8));
-    private All_Sprites _All_Sprites = new All_Sprites();
+    private All_Sprites _All_Sprites = All_Sprites.getInstance();
 
-    private vTablero Matriz_Tablero = new vTablero("Blanco");
+    public static String orden_Piezas = "Abajo_Blancas";
+
+    private vTablero Matriz_Tablero = vTablero.getInstance(orden_Piezas);
         public Tablero()
         {
             ventana = this;
@@ -104,6 +106,9 @@ public class Tablero extends JFrame
 
                                 if (Matriz_Tablero.getVTablero()[fila][columna] instanceof Peon)
                                 {
+                                    //Pruebas Alex
+
+
                                 }
                                 else if (Matriz_Tablero.getVTablero()[fila][columna] instanceof Torre)
                                 {
@@ -135,6 +140,8 @@ public class Tablero extends JFrame
             Agregar_AllCaballos(Color);
             Agregar_Alfiles(Color);
             Agregar_ReyReina(Color);
+
+            add(panel_8x8);
         }
 
         private void Agregar_AllPeones(String Color)
@@ -160,8 +167,6 @@ public class Tablero extends JFrame
                     _final = 56;
                 }
             }
-
-            add(panel_8x8);
         }
 
         private void Agregar_AllTorres(String Color)
@@ -180,8 +185,6 @@ public class Tablero extends JFrame
                 Agregar_Pieza("Torre", Color, 56);
                 Agregar_Pieza("Torre", Color, 63);
             }
-
-            add(panel_8x8);
         }
 
         private void Agregar_AllCaballos(String Color)
@@ -200,8 +203,6 @@ public class Tablero extends JFrame
                 Agregar_Pieza("Caballo", Color, 57);
                 Agregar_Pieza("Caballo", Color, 62);
             }
-
-            add(panel_8x8);
         }
 
         private void Agregar_Alfiles(String Color)
@@ -219,8 +220,6 @@ public class Tablero extends JFrame
                 Agregar_Pieza("Alfil", Color, 58);
                 Agregar_Pieza("Alfil", Color, 61);
             }
-
-            add(panel_8x8);
         }
 
 
@@ -240,8 +239,6 @@ public class Tablero extends JFrame
                 Agregar_Pieza("Rey", Color, 60);
                 Agregar_Pieza("Reina", Color, 59);
             }
-
-            add(panel_8x8);
         }
 
         private void Agregar_Pieza(String Pieza, String Color, int i)
@@ -253,37 +250,37 @@ public class Tablero extends JFrame
                 {
                     Peon pieza = new Peon(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Blanco_Peon()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Torre"))
                 {
                     Torre pieza = new Torre(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Blanco_Torre()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Caballo"))
                 {
                     Caballo pieza = new Caballo(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Blanco_Caballo()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Alfil"))
                 {
                     Alfil pieza = new Alfil(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Blanco_Alfil()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Rey"))
                 {
                     Rey pieza = new Rey(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Blanco_Rey()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if(Pieza.equalsIgnoreCase("Reina"))
                 {
                     Reina pieza = new Reina(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Blanco_Reina()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
             }
             else if (Color.equalsIgnoreCase("Negro"))
@@ -292,47 +289,48 @@ public class Tablero extends JFrame
                 {
                     Peon pieza = new Peon(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Negro_Peon()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Torre"))
                 {
                     Torre pieza = new Torre(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Negro_Torre()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Caballo"))
                 {
                     Caballo pieza = new Caballo(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Negro_Caballo()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Alfil"))
                 {
                     Alfil pieza = new Alfil(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Negro_Alfil()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if (Pieza.equalsIgnoreCase("Rey"))
                 {
                     Rey pieza = new Rey(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Negro_Rey()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
                 else if(Pieza.equalsIgnoreCase("Reina"))
                 {
                     Reina pieza = new Reina(Color);
                     JButton posicion = (JButton) panel_8x8.getComponent(i);
-                    posicion.setIcon(pieza.Sprite(_All_Sprites.getImg_Negro_Reina()));
+                    posicion.setIcon(pieza.Check_Icon());
                 }
             }
         }
 
         //PRUEBAS DE ALEX
-        //Agregar Sprite
-        public void Agregar_Sprite(int fila, int columna, Peon _Peon)
+    /*
+        public void Agregar_Sprite(int fila, int columna, Object Pieza)
         {
+
             JButton posicion = (JButton) panel_8x8.getComponent((fila * 8) + columna);
-            posicion.setIcon(_Peon.Sprite(_All_Sprites.getImg_Blanco_Peon()));
+            posicion.setIcon(Pieza.Check_Icon());
         }
 
         //Quitar Sprite
@@ -342,4 +340,5 @@ public class Tablero extends JFrame
             posicion.setIcon(null);
         }
 
+     */
 }
