@@ -1,112 +1,64 @@
 package Piezas;
 
-import Sprites.All_Sprites;
+import Piezas.Enums.Direction;
+import Piezas.Enums.Tipo_Color;
+import Piezas.Enums.Tipo_Pieza;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
-import static Tablero.Tablero.orden_Piezas;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Peon
+import static Tablero.Tablero2.orden_Piezas;
+
+public class Peon extends Pieza
 {
-    private String color;
-    private ImageIcon spr_pieza = null;
-    private All_Sprites _All_Sprite = All_Sprites.getInstance();
-
-    //Gets y set
-    public String getColor(){
-        return color;
-    }
-    protected void setColor(String _color){color = _color;}
-    protected ImageIcon getSpr_pieza() {return spr_pieza;}
-    public void setSpr_pieza(ImageIcon spr){spr_pieza = spr;}
-
-    public All_Sprites get_All_Sprite(){return _All_Sprite;}
 
     //Constructor
-    public Peon(String Color)
+    public Peon(Tipo_Color Color)
     {
         color = Color;
+        setTipoPieza(Tipo_Pieza.PEON);
     }
 
-    //Check Si ya tiene o no el sprite la clase
-    public ImageIcon Check_Icon(){
-
-        if(spr_pieza == null) {
-            if (color.equalsIgnoreCase("Blanco")) {
-                spr_pieza = Sprite(_All_Sprite.getFile_Blanco_Peon());
-            } else if (color.equalsIgnoreCase("Negro")) {
-                spr_pieza = Sprite(_All_Sprite.getFile_Negro_Peon());
+    @Override
+    public ImageIcon Check_Icon() {
+        if(getSpr_pieza() == null) {
+            if (getColor().equals(Tipo_Color.BLANCO)) {
+                setSpr_pieza(Sprite(get_All_Sprite().getFile_Blanco_Peon()));
+            } else if (getColor().equals(Tipo_Color.NEGRO)) {
+                setSpr_pieza(Sprite(get_All_Sprite().getFile_Negro_Peon()));
             }
         }
 
-        return spr_pieza;
+        return getSpr_pieza();
     }
-    //Sprite
-    protected ImageIcon Sprite(File imgArchivo)
-    {
-        ImageIcon _sprite = new ImageIcon();
-
-        if(color.equalsIgnoreCase("Blanco"))
-        {
-            Image img = null;
-
-            //el metodo read de ImageIO, necesita ir dentro de un bloque try-catch por que no puede colocar una imagen null
-            try {
-
-                img = ImageIO.read(imgArchivo);
-
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-            }
-
-            _sprite.setImage(img);
-        }
-        else if (color.equalsIgnoreCase("Negro"))
-        {
-            Image img = null;
-
-            //el metodo read de ImageIO, necesita ir dentro de un bloque try-catch por que no puede colocar una imagen null
-            try {
-
-                img = ImageIO.read(imgArchivo);
-
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-            }
-
-            _sprite.setImage(img);
-        }
-
-        Image _Spr_Pieza = _sprite.getImage().getScaledInstance(32, 42, Image.SCALE_SMOOTH);
-
-        ImageIcon img_return = new ImageIcon(_Spr_Pieza);
-
-        return img_return;
-    }
-
     //Movimiento -Pruebas Alex
-    public int Mov_Pieza(){
-        int num_mov = 0;
+    public HashMap<Direction, Integer> Mov_Pieza(){
+        HashMap<Direction, Integer> DireccYmovimiento = new HashMap<>();
 
         if(orden_Piezas.equalsIgnoreCase("Abajo_Blancas")){
-            if(color.equalsIgnoreCase("Blanco"))
+            if(color.equals(Tipo_Color.BLANCO))
             {
-                //Aprender a usar MAP y hashMAP
+                DireccYmovimiento.put(Direction.TOP, 1);
+            }
+            else if (color.equals(Tipo_Color.NEGRO))
+            {
+                DireccYmovimiento.put(Direction.BOTTOM, 1);
             }
         }
         else if(orden_Piezas.equalsIgnoreCase("Arriba_Blancas"))
         {
-            if(color.equalsIgnoreCase("Negro"))
+            if(color.equals(Tipo_Color.NEGRO))
             {
+                DireccYmovimiento.put(Direction.TOP, 1);
+            }
+            else if (color.equals(Tipo_Color.BLANCO))
+            {
+                DireccYmovimiento.put(Direction.BOTTOM, 1);
             }
         }
 
-        return num_mov;
+        return DireccYmovimiento;
     }
 }
