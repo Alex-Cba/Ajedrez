@@ -8,13 +8,17 @@ import ar.edu.utn.frc.tup.lciii.model.Jugador.Jugador;
 import ar.edu.utn.frc.tup.lciii.repository.PartidaRepository;
 import ar.edu.utn.frc.tup.lciii.repository.PosicionRepository;
 import ar.edu.utn.frc.tup.lciii.service.PartidaServiceImpl;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,11 +29,10 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class Ajedrez2ApplicationTests {
-
     private final InputStream systemIn = System.in;
     private final PrintStream systemOut = System.out;
     private ByteArrayOutputStream testOut;
-    
+
     @Test
     void contextLoads() {
     }
